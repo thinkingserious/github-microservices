@@ -2,6 +2,14 @@
 
 This is sample code for a OSCON 2019 tutorial: https://conferences.oreilly.com/oscon/oscon-or/public/schedule/detail/76039
 
+## Pre-requisites
+
+* [Virtual Box](https://www.virtualbox.org/wiki/Downloads)
+* [Docker](https://docs.docker.com/install)
+* [MiniKube](https://kubernetes.io/docs/tasks/tools/install-minikube)
+* [Kompose](https://kubernetes.io/docs/tasks/configure-pod-container/translate-compose-kubernetes/#install-kompose)
+* [Clone GitHub Monolith](https://github.com/thinkingserious/github-monolith)
+
 ## Installation
 
 Update `.env_example`.
@@ -12,7 +20,7 @@ source .env
 docker-machine create -d virtualbox github-manager-microservices
 eval "$(docker-machine env github-manager-microservices)"
 export GITHUB_MANAGER_MICROSERVICES_IP="$(docker-machine ip github-manager-microservices)"
-docker-compose -f docker-compose-dev.yml up -d --build
+docker-compose -f docker-compose.yml up -d --build
 ```
 
 ## Quickstart
