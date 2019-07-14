@@ -36,7 +36,7 @@ Open `examples/send_sms` and update the to and from phone numbers in the `send_s
 ```bash
 python3 -m venv venv
 source ./venv/bin/activate
-pip install -r web/requirements.txt
+pip install -r services/web/requirements.txt
 export GITHUB_MANAGER_MICROSERVICES_IP="$(docker-machine ip github-manager-microservices)"
 python examples/get_all_issues.py
 python examples/get_all_prs.py
