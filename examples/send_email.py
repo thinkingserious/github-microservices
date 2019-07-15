@@ -2,11 +2,9 @@ from python_http_client import Client, exceptions
 import os
 import json
 import time
+import config
 
-all_repos = [
-    'sendgrid/sendgrid-nodejs',
-    'twilio/twilio-node'
-]
+all_repos = config.REPOS
 
 def send_email(from_email, to_email, subject, content):
     client = Client(host="http://{}".format(os.environ.get('GITHUB_MANAGER_MICROSERVICES_IP')))
@@ -32,8 +30,11 @@ for repo in all_repos:
     for pr in prs:
         total_prs_to_review += 1
 
-send_email(
-    '<From email> (e.g. dx@sendgrid.com)',
-    '<Destination email> (e.g. ethomas@twilio.com)',
-    'PRs! PRs everywhere!',
-    'There are a total of {0} open prs needing a code review across all repos'.format(total_prs_to_review))
+try:
+    send_email(
+        config.FROM_EMAIL,
+        config.TO_EMAIL,
+        'PRs! PRs everywhere!',
+        'There are a total of {0} open prs needing a code review across all repos'.format(total_prs_to_review))
+except Exception as e:
+    print(e.body)

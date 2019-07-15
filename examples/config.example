@@ -1,0 +1,8 @@
+REPOS = [
+    'mygithubusername/myawesomerepo1',
+    'mygithubusername/myawesomerepo2'
+]
+FROM_EMAIL = 'from@example.com'
+TO_EMAIL = 'to@example.com'
+FROM_PHONE_NUMBER = '+13334445555'
+TO_PHONE_NUMBER = '13334445555'

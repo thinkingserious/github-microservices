@@ -2,11 +2,9 @@ from python_http_client import Client
 import os
 import json
 import time
+import config
 
-all_repos = [
-    'sendgrid/sendgrid-nodejs',
-    'twilio/twilio-node'
-]
+all_repos = config.REPOS
 
 def send_sms(from_number, to_number, body):
     client = Client(host="http://{}".format(os.environ.get('GITHUB_MANAGER_MICROSERVICES_IP')))
@@ -31,7 +29,11 @@ for repo in all_repos:
     for pr in prs:
         total_prs_to_review += 1
 
-send_sms(
-    '<A Phone Number Associated with your Account SID>  (e.g. +15551234444)',
-    '<The destination Phone Number> (e.g. +15551234444)',
-    'There are a total of {0} open prs needing a code review across all repos'.format(total_prs_to_review))
+try:
+    send_sms(
+        config.FROM_PHONE_NUMBER,
+        config.TO_PHONE_NUMBER,
+        'There are a total of {0} open prs needing a code review across all repos'.format(total_prs_to_review))
+except Exception as e:
+    print(e.body)
+

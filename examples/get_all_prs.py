@@ -2,11 +2,9 @@ from python_http_client import Client
 import os
 import json
 import time
+import config
 
-all_repos = [
-    'sendgrid/sendgrid-nodejs',
-    'twilio/twilio-node'
-]
+all_repos = config.REPOS
 
 def get_prs(repo):
     client = Client(host="http://{}".format(os.environ.get('GITHUB_MANAGER_MICROSERVICES_IP')))

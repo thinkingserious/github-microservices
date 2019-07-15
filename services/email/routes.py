@@ -12,9 +12,6 @@ def send_email():
         to_emails=r['to_email'],
         subject=r['subject'],
         html_content=r['content'])
-    try:
-        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-        response = sg.send(message)
-    except Exception as e:
-        return jsonify([{"message": str(e)}]), 500
+    sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+    response = sg.send(message)
     return jsonify([{"message": "success"}]), 200
