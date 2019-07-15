@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: minikube-ingress
+  annotations:
+spec:
+  rules:
+  - host: hello.world
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: web
+          servicePort: 5000
+      - path: /github
+        backend:
+          serviceName: github
+          servicePort: 5000
+      - path: /sms
+        backend:
+          serviceName: sms
+          servicePort: 5000
+      - path: /email
+        backend:
+          serviceName: email
+          servicePort: 5000

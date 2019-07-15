@@ -16,3 +16,11 @@ def send_sms():
                         to=r['to_number']
                     )
     return jsonify([{"message": "success"}]), 200
+
+@routes_blueprint.route('/sms/ping', methods=['GET'])
+def ping():
+    return jsonify({
+        'status': 'success',
+        'message': 'pong!',
+        'container_id': os.uname()[1]
+    }), 200

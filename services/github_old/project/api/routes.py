@@ -3,6 +3,14 @@ from flask import Blueprint, jsonify, current_app, request
 from github import Github
 routes_blueprint = Blueprint('routes', __name__)
 
+@routes_blueprint.route('/github/ping', methods=['GET'])
+def ping():
+    return jsonify({
+        'status': 'success',
+        'message': 'pong!',
+        'container_id': os.uname()[1]
+    }), 200
+
 @routes_blueprint.route('/github/prs', methods=['GET'])
 def get_prs():
     prs = []
@@ -25,10 +33,5 @@ def get_issues():
         items.append({"number": issue.number,"url": issue.url, "title": issue.title})
     return jsonify(items), 200
 
-@routes_blueprint.route('/github/ping', methods=['GET'])
-def ping():
-    return jsonify({
-        'status': 'success',
-        'message': 'pong!',
-        'container_id': os.uname()[1]
-    }), 200
+if __name__ == '__main__':
+    app.run()

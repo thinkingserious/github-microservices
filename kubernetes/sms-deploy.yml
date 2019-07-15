@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: sms
+  labels:
+    name: sms
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sms
+    spec:
+      containers:
+      - name: sms
+        image: thinkingserious/sms:latest
+        env:
+        - name: APP_SETTINGS
+          value: "project.config.BaseConfig"
+        - name: TWILIO_ACCOUNT_SID
+          valueFrom:
+            secretKeyRef:
+              name: credentials
+              key: twilio_account_sid
+        - name: TWILIO_AUTH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: credentials
+              key: twilio_auth_token
+      restartPolicy: Always

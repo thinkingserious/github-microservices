@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: email
+  labels:
+    name: email
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: email
+    spec:
+      containers:
+      - name: email
+        image: thinkingserious/email:latest
+        env:
+        - name: APP_SETTINGS
+          value: "project.config.BaseConfig"
+        - name: SENDGRID_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: credentials
+              key: sendgrid_api_key
+      restartPolicy: Always

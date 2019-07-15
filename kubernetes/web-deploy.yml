@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: web
+  labels:
+    name: web
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: thinkingserious/web:latest
+        env:
+        - name: APP_SETTINGS
+          value: "project.config.BaseConfig"
+        - name: GITHUB_MANAGER_MICROSERVICES_IP
+          value: "hello.world"
+      restartPolicy: Always

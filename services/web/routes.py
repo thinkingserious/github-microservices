@@ -43,3 +43,10 @@ def dashboard():
 
     return render_template('index.html', title='Dashboard', num_prs=total_prs_to_review, num_issues=total_issues_to_review)
 
+@routes_blueprint.route('/ping', methods=['GET'])
+def ping():
+    return jsonify({
+        'status': 'success',
+        'message': 'pong!',
+        'container_id': os.uname()[1]
+    }), 200

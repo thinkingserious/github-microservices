@@ -1,11 +1,11 @@
-version: '3'
+version: '2'
 
 services:
   web:
     image: 'thinkingserious/web'
     restart: always
     build: ./services/web
-    expose:
+    ports:
       - "8000"
     environment:
       - GITHUB_MANAGER_MICROSERVICES_IP=${GITHUB_MANAGER_MICROSERVICES_IP}
@@ -15,7 +15,7 @@ services:
     image: 'thinkingserious/email'
     restart: always
     build: ./services/email
-    expose:
+    ports:
       - "8000"
     environment:
       - SENDGRID_API_KEY=${SENDGRID_API_KEY}
@@ -25,10 +25,11 @@ services:
     image: 'thinkingserious/github'
     restart: always
     build: ./services/github
-    expose:
+    ports:
       - "8000"
     environment:
       - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - APP_SETTINGS=project.config.BaseConfig
     command: /usr/local/bin/gunicorn -w 2 -b :8000 app:app
 
   nginx:
@@ -39,12 +40,14 @@ services:
       - "80:80"
     links:
       - web:web
+    environment:
+        - GET_HOSTS_FROM=dns
 
   sms:
     image: 'thinkingserious/sms'
     restart: always
     build: ./services/sms
-    expose:
+    ports:
       - "8000"
     environment:
       - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID}

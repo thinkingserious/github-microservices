@@ -15,3 +15,11 @@ def send_email():
     sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
     response = sg.send(message)
     return jsonify([{"message": "success"}]), 200
+
+@routes_blueprint.route('/email/ping', methods=['GET'])
+def ping():
+    return jsonify({
+        'status': 'success',
+        'message': 'pong!',
+        'container_id': os.uname()[1]
+    }), 200

@@ -7,9 +7,9 @@ import config
 all_repos = config.REPOS
 
 def get_prs(repo):
-    client = Client(host="http://{}".format(os.environ.get('GITHUB_MANAGER_MICROSERVICES_IP')))
+    client = Client(host="http://{}".format('hello.world'))
     query_params = {
-        "repo":repo
+        "repo": repo
     }
     response = client.github.prs.get(query_params=query_params)
     return json.loads(response.body)

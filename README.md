@@ -32,6 +32,7 @@ This is sample code for a OSCON 2019 tutorial: https://conferences.oreilly.com/o
 
 ```bash
 mv ./.env_example ./.env
+mv ./examples/config.example ./examples/config.py
 source .env
 docker-machine create -d virtualbox github-manager-microservices
 eval "$(docker-machine env github-manager-microservices)"
@@ -55,11 +56,43 @@ python examples/send_email.py
 python examples/send_sms.py
 ```
 
+## Local Kubernetes Setup
+
+* Update `kubernetes/secret.example`.
+
+```bash
+minikube start
+mv ./kubernetes/secret.example ./kubernetes/secret.yml
+kubectl apply -f ./kubernetes/secret.yml
+minikube dashboard // Verify secrets are deployed
+minikube addons enable ingress
+docker login
+docker build -t <YOUR DOCKER HUB USERNAME>/github ./services/github
+docker push <YOUR DOCKER HUB USERNAME>/github
+docker build -t <YOUR DOCKER HUB USERNAME>/sms ./services/sms
+docker push <YOUR DOCKER HUB USERNAME>/sms
+docker build -t <YOUR DOCKER HUB USERNAME>/email ./services/email
+docker push <YOUR DOCKER HUB USERNAME>/email
+docker build -t <YOUR DOCKER HUB USERNAME>/web ./services/web
+docker push <YOUR DOCKER HUB USERNAME>/web
+kubectl create -f ./kubernetes/github-deploy.yml
+kubectl create -f ./kubernetes/github-service.yml
+kubectl create -f ./kubernetes/sms-deploy.yml
+kubectl create -f ./kubernetes/sms-service.yml
+kubectl create -f ./kubernetes/email-deploy.yml
+kubectl create -f ./kubernetes/email-service.yml
+kubectl create -f ./kubernetes/web-deploy.yml
+kubectl create -f ./kubernetes/web-service.yml
+kubectl apply -f ./kubernetes/minikube-ingress.yml
+echo "$(minikube ip) hello.world" | sudo tee -a /etc/hosts // Add minikube ip to /etc/hosts
+```
+
 # References
 * https://github.com/thinkingserious/github-monolith
 * https://github.com/sendgrid/github-automation
 * https://github.com/sendgrid/dx-automator
 * https://github.com/miguelgrinberg
 * https://github.com/testdrivenio/testdriven-app-2.5
+* https://github.com/testdrivenio/flask-vue-kubernetes
 * https://github.com/realpython/orchestrating-docker
 * http://flask.pocoo.org/docs/1.0

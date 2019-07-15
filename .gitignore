@@ -110,9 +110,6 @@ settings.json
 
 # Docker
 .docker/
-email-deployment.yaml
-github-deployment.yaml
-nginx-deployment.yaml
-nginx-service.yaml
-sms-deployment.yaml
-web-deployment.yaml
+
+# Kubernetes
+secret.yml

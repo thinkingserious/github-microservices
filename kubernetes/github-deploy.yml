@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: github
+  labels:
+    name: github
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: github
+    spec:
+      containers:
+      - name: github
+        image: thinkingserious/github:latest
+        env:
+        - name: APP_SETTINGS
+          value: "project.config.BaseConfig"
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: credentials
+              key: github_token
+      restartPolicy: Always
