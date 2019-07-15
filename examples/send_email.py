@@ -7,7 +7,7 @@ import config
 all_repos = config.REPOS
 
 def send_email(from_email, to_email, subject, content):
-    client = Client(host="http://{}".format('hello.world'))
+    client = Client(host="http://{}".format(os.environ.get('GITHUB_MANAGER_MICROSERVICES_IP')))
     data = {
         "from_email": from_email,
         "to_email": to_email,

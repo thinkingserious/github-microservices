@@ -7,7 +7,7 @@ import config
 all_repos = config.REPOS
 
 def send_sms(from_number, to_number, body):
-    client = Client(host="http://{}".format('hello.world'))
+    client = Client(host="http://{}".format(os.environ.get('GITHUB_MANAGER_MICROSERVICES_IP')))
     data = {
         "from_number": from_number,
         "to_number": to_number,

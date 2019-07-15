@@ -1,28 +1,30 @@
 import os
 from flask import Blueprint, jsonify, current_app, request
-from github import Github
+from github3 import login
 routes_blueprint = Blueprint('routes', __name__)
 
 @routes_blueprint.route('/github/prs', methods=['GET'])
 def get_prs():
     prs = []
-    repo = request.args.get('repo', type=str)
-    g = Github(current_app.config['GITHUB_TOKEN'])
-    repo = g.get_repo(repo)
-    pulls = repo.get_pulls(state='open', sort='created')
+    repo_user = request.args.get('repo_user', type=str)
+    repo_name = request.args.get('repo_name', type=str)
+    g = login(token=current_app.config['GITHUB_TOKEN'])
+    repo = g.repository(repo_user, repo_name)
+    pulls = repo.iter_pulls(state='open', base='master')
     for pr in pulls:
-        prs.append({"number": pr.number,"url": pr.url, "title": pr.title})
+        prs.append({"number": pr.number,"url": pr.html_url, "title": pr.title})
     return jsonify(prs), 200
 
 @routes_blueprint.route('/github/issues', methods=['GET'])
 def get_issues():
     items = []
-    repo = request.args.get('repo', type=str)
-    g = Github(current_app.config['GITHUB_TOKEN'])
-    repo = g.get_repo(repo)
-    issues = repo.get_issues(state='open', sort='created')
+    repo_user = request.args.get('repo_user', type=str)
+    repo_name = request.args.get('repo_name', type=str)
+    g = login(token=current_app.config['GITHUB_TOKEN'])
+    repo = g.repository(repo_user, repo_name)
+    issues = repo.iter_issues(state='open')
     for issue in issues:
-        items.append({"number": issue.number,"url": issue.url, "title": issue.title})
+        items.append({"number": issue.number,"url": issue.html_url, "title": issue.title})
     return jsonify(items), 200
 
 @routes_blueprint.route('/github/ping', methods=['GET'])
