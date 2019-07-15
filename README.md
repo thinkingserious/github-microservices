@@ -99,6 +99,11 @@ kubectl create -f ./kubernetes/web-deploy.yml
 kubectl create -f ./kubernetes/web-service.yml
 kubectl apply -f ./kubernetes/minikube-ingress.yml
 echo "$(minikube ip) hello.world" | sudo tee -a /etc/hosts // Add minikube ip to /etc/hosts
+export GITHUB_MANAGER_MICROSERVICES_IP="hello.world"
+python examples/get_all_issues.py
+python examples/get_all_prs.py
+python examples/send_email.py
+python examples/send_sms.py
 ```
 
 # References
