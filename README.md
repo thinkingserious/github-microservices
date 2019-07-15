@@ -4,6 +4,20 @@ This is sample code for a OSCON 2019 tutorial: https://conferences.oreilly.com/o
 
 ## Pre-requisites
 
+### If installing using a thumb drive
+
+Install the binaries in the appropriate folder `osx`, `windows`, `linux`
+
+Docker images are also included in the `docker-images` folder so you don't need to download them. Move them to your local machine and then install them like so.
+
+```bash
+cd DIRECTORY_WHERE_YOU_COPIED_THE_DOCKER_IMAGES
+docker load -i python.tar
+docker load -i nginx.tar
+```
+
+### If installing from the Internet
+
 * [Virtual Box](https://www.virtualbox.org/wiki/Downloads)
   * [OS X](https://download.virtualbox.org/virtualbox/6.0.8/VirtualBox-6.0.8-130520-OSX.dmg)
   * [Windows](https://download.virtualbox.org/virtualbox/6.0.8/VirtualBox-6.0.8-130520-Win.exe)
