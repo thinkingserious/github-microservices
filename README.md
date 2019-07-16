@@ -108,6 +108,22 @@ python examples/send_email.py
 python examples/send_sms.py
 ```
 
+## Troubleshooting
+
+### kubectl
+When installing `kubectl` using `brew` you might run into schema errors. You can fix this by relinking.
+
+```bash
+rm /usr/local/bin/kubectl
+brew link --overwrite kubernetes-cli
+```
+
+And also optionally:
+
+```bash
+brew link --overwrite --dry-run kubernetes-cli. 
+```
+
 # References
 * https://github.com/thinkingserious/github-monolith
 * https://github.com/sendgrid/github-automation
