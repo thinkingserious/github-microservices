@@ -6,16 +6,20 @@ routes_blueprint = Blueprint('routes', __name__)
 
 def get_issues(repo):
     client = Client(host="http://{}".format(os.environ.get('GITHUB_MANAGER_MICROSERVICES_IP')))
+    repo_user, repo_name = repo.split("/")
     query_params = {
-        "repo":repo
+        "repo_user": repo_user,
+        "repo_name": repo_name
     }
     response = client.github.issues.get(query_params=query_params)
     return json.loads(response.body)
 
 def get_prs(repo):
     client = Client(host="http://{}".format(os.environ.get('GITHUB_MANAGER_MICROSERVICES_IP')))
+    repo_user, repo_name = repo.split("/")
     query_params = {
-        "repo":repo
+        "repo_user": repo_user,
+        "repo_name": repo_name
     }
     response = client.github.prs.get(query_params=query_params)
     return json.loads(response.body)
