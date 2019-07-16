@@ -54,23 +54,7 @@ export GITHUB_MANAGER_MICROSERVICES_IP="$(docker-machine ip github-manager-micro
 docker-compose -f docker-compose.yml up -d --build
 ```
 
-## Quickstart
-
-Go to `http://<$GITHUB_MANAGER_MICROSERVICES_IP>` in your browser. If you see "There are a total...", you're good to go.
-
-```bash
-python3 -m venv venv
-source ./venv/bin/activate
-pip install -r services/web/requirements.txt
-source .env
-export GITHUB_MANAGER_MICROSERVICES_IP="$(docker-machine ip github-manager-microservices)"
-python examples/get_all_issues.py
-python examples/get_all_prs.py
-python examples/send_email.py
-python examples/send_sms.py
-```
-
-## Quickstart (PowerShell)
+## Installation (PowerShell)
 
 ```powershell
 mv ./.env_example ./.env
@@ -90,6 +74,22 @@ docker-machine create -d virtualbox github-manager-microservices
 & docker-machine env github-manager-microservices | Invoke-Expression
 $env:GITHUB_MANAGER_MICROSERVICES_IP = docker-machine ip github-manager-microservices
 docker-compose -f docker-compose.yml up -d --build
+```
+
+## Quickstart
+
+Go to `http://<$GITHUB_MANAGER_MICROSERVICES_IP>` in your browser. If you see "There are a total...", you're good to go.
+
+```bash
+python3 -m venv venv
+source ./venv/bin/activate
+pip install -r services/web/requirements.txt
+source .env
+export GITHUB_MANAGER_MICROSERVICES_IP="$(docker-machine ip github-manager-microservices)"
+python examples/get_all_issues.py
+python examples/get_all_prs.py
+python examples/send_email.py
+python examples/send_sms.py
 ```
 
 ## Local Kubernetes Setup
