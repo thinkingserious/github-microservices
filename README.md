@@ -39,7 +39,7 @@ docker load -i nginx.tar
   * [Linux AMD](https://github.com/kubernetes/kompose/releases/download/v1.18.0/kompose-linux-amd64.tar.gz)
   * [Linux ARM](https://github.com/kubernetes/kompose/releases/download/v1.18.0/kompose-linux-arm.tar.gz)
   * [Windows](https://github.com/kubernetes/kompose/releases/download/v1.18.0/kompose-windows-amd64.exe.tar.gz)
-* [Clone GitHub Monolith](https://github.com/thinkingserious/github-monolith)
+* [Clone GitHub Microservices](https://github.com/thinkingserious/github-microservices)
 
 ## Installation
 
