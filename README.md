@@ -2,6 +2,8 @@
 
 This is sample code for a OSCON 2019 tutorial: https://conferences.oreilly.com/oscon/oscon-or/public/schedule/detail/76039
 
+Please find the corresponding slides [here](https://docs.google.com/presentation/d/1nGDy4w70doTdc9TVRqDp9KK-mnOpVXz9VYZ3X4dBZlA)
+
 ## Pre-requisites
 
 ### If installing using a thumb drive
