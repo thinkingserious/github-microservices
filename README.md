@@ -70,6 +70,28 @@ python examples/send_email.py
 python examples/send_sms.py
 ```
 
+## Quickstart (PowerShell)
+
+```ps
+mv ./.env_example ./.env
+mv ./examples/config.example ./examples/config.py
+
+# Load the environment variables in .env
+foreach ($line in (Get-Content ./.env -ErrorAction Stop)) {
+    if ($line.StartsWith("#")) { continue }
+    if ($line.Trim()) {
+        $formatted = $line.Replace("'","").Replace("export ","")
+        $kvp = $formatted -split "=",2
+        [Environment]::SetEnvironmentVariable($kvp[0], $kvp[1])
+    }
+}
+
+docker-machine create -d virtualbox github-manager-microservices
+& docker-machine env github-manager-microservices | Invoke-Expression
+$env:GITHUB_MANAGER_MICROSERVICES_IP = docker-machine ip github-manager-microservices
+docker-compose -f docker-compose.yml up -d --build
+```
+
 ## Local Kubernetes Setup
 
 * Update `kubernetes/secret.example`.
