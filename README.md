@@ -72,7 +72,7 @@ python examples/send_sms.py
 
 ## Quickstart (PowerShell)
 
-```ps
+```powershell
 mv ./.env_example ./.env
 mv ./examples/config.example ./examples/config.py
 
