@@ -124,6 +124,13 @@ And also optionally:
 brew link --overwrite --dry-run kubernetes-cli. 
 ```
 
+### IP Connection
+If you are unable to connect to `http://<$GITHUB_MANAGER_MICROSERVICES_IP>`, try regenerating the certs:
+
+```bash
+docker-machine regenerate-certs -f github-manager-microservices
+```
+
 # References
 * https://github.com/thinkingserious/github-monolith
 * https://github.com/sendgrid/github-automation
